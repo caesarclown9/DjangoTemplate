@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul>
+{% for obj in recipes %}
+    <a href="{% url 'recipes:recipe_detail' pk=obj.pk %}">
+        <li> {{ obj.title }}</li>
+    </a>
+    <li> {{ obj.description }}</li>
+</ul>
+{% endfor %}
+</body>
+</html>

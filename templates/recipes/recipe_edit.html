@@ -1,0 +1,10 @@
+{% load static %}
+
+
+<div class="container">
+<form action="{% url 'recipes:recipe_edit' pk=recipe.pk %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit"> Update Recipe </button>
+</form>
+</div>

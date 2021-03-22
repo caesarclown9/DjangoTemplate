@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- Main -->
+{% block content %}
+
+
+<h2><a href="{% url 'recipes:categories_list'%}" class='title'>Categories</a>
+</h2>
+
+<div id="main">
+  <!-- Featured Post -->
+  {% if request.user.is_authenticated %}
+    <form action="{% url 'users:profile' %}">
+      <button type="submit">Cabinet</button>
+    </form>
+    <form action="{% url 'logout' %}">
+        <button type='submit'>Log out</button>
+    </form>
+    <form action="{% url 'recipes:recipe_create' %}">
+      <button type='submit'>Add Recipe</button>
+    </form>
+    {% else %}
+    <form action="{% url 'users:register' %}">
+      <button type="submit">Sign up</button>
+    </form>
+
+    <form action="{% url 'login' %}">
+      <button type="submit">Sign in</button>
+    </form>
+    {% endif %}
+
+    <nav class="navbar navbar-light bg-light">
+      <form class="form-inline" action="{% url 'recipes:search_results'%}" method="GET">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </nav>
+
+  <!-- Recipes -->
+	{% for recipe in object_list %}
+		<article class="post featured">
+			<header class="major">
+				<h2><a href="{% url 'recipes:recipe_detail' pk=recipe.pk %}">{{ recipe.title }}</a></h2>
+        <p>{{ recipe.description }}</p>
+        <img src="{% static 'images/food/1.jpeg' %}">
+			</header>
+		</article>
+  {% endfor %}
+  
+  {% if is_paginated %}
+  <ul class="pagination">
+    {% if recipes.has_previous %}
+      <li><a href="?page={{ recipes.previous_page_number }}">Previous</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in paginator.page_range %}
+      {% if recipes.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if recipes.has_next %}
+      <li><a href="?page={{ recipes.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
+{% endblock content %}

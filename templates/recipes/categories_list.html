@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+<title>{% block title %} Categories {% endblock title%}</title>
+
+{% block content %}
+
+{% for cat in object_list %}
+<ul class='list-group'>
+
+<li class="list-group-item list-group-item-primary">
+  <a href="{% url 'recipes:category' pk=cat.pk %}">{{ cat.title }}</a>
+</li>
+
+</ul>
+
+{% endfor %}
+
+{% endblock content %}

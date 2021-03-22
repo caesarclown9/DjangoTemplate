@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{ recipe.title }} Recipe Details
+{% endblock title %}
+
+{% block content %}
+    <ul>
+        <li>{{ recipe.title }}</li>
+        <li>{{ recipe.description }}</li>
+        <a href="{% url 'recipes:recipe_edit' pk=recipe.pk %}">
+            <button type="button" class="btn btn-primary">Update</button>
+
+        </a>
+         <a href="{% url 'recipes:recipe_delete' pk=recipe.pk %}">
+        <button type="button" class="btn btn-danger">Delete</button>
+        </a>
+    </ul>
+
+{% endblock content %}

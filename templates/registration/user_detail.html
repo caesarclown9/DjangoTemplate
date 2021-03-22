@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>User Profile</title>
+  </head>
+  <body>
+    {% if user.is_authenticated %}
+    <div>
+      <p>{{ object.name }}</p>
+      <p>{{ object.username }}</p>
+      <p>{{ object.email }}</p>
+    </div>
+    {% else %}
+    <p>Please login</p>
+    <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+  </body>
+</html>
